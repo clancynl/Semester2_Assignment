@@ -1,20 +1,21 @@
 from random import randint
 
 class Building(object):
+    '''Initialiser for the Building Class.  Contains number of floors in the building and 
+    list for number of customers in the Building.  Elevator created from the Elevator Class
+    '''
     def __init__ (self, num_floors, customers_for_boarding_list):        
         self.num_floors = num_floors
         self.boarding = customers_for_boarding_list
         self.elevator = Elevator(self, num_floors)
 
     def run(self, elevator):
+        '''accept any passengers waiting at this floor from the building boarding_list
+        goes onto the (Elevator) Passenger List - Embarking
+        '''
         while self.elevator.passenger_list or  self.boarding:
-            '''accept any passengers waiting at this floor from the building boarding_list
-            goes onto the (Elevator) Passenger List - Embarking'''
             elevator.embarking_customer()
-            #print('Customer Embarked')
-            #Allow customers off if required floor matches that in Passenger List - 
             elevator.disembarking_customer()
-            #print('Customer Disembarked')
            
             elevator.move()
     
@@ -23,6 +24,9 @@ class Building(object):
             #customer.output()
 
 class Elevator(object):
+    '''Initialiser for the Elevator Class.  Contains number of floors the Elevator has to travel and  
+    a list for number of customers about to Board the Elevator and a list for Passengers in the Elevator.
+    '''    
     def __init__(self, num_floors, customers_for_boarding_list):
         self.floors = num_floors
         self.passenger_list = []
@@ -40,7 +44,7 @@ class Elevator(object):
                 self.customers_for_boarding_list.remove(customer)
                 self.embarked_customer += 1
                 print('Customer Alighting . . . Doors Open ... ')
-                print("Customer with ID: {}".format(customer.ID) + " gets on at floor {}".format(customer.starting_floor-1))
+                print("Customer with ID: {}".format(customer.ID) + " gets on at floor {}".format(customer.starting_floor))
                 # + "& presses the button for floor:"item.ending_floor)
                 print('... Customer embarked ...')
                 print('... Doors Close ...')
@@ -76,26 +80,10 @@ class Elevator(object):
         if self.current_floor == 0:
             self.direction = 'up'
 
-    #def doors_open(self):
-        #let out any passengers who are at their destination floor
-        #for customer in self.passenger_list:
-            #if self.current_floor == customer.ending_floor:
-                #self.disembarking_customer(customer)
-                #print("Customer with ID: {}".format(customer.ID) + " gets off at floor {}".format(customer.ending_floor))
-                #print('Customer disembarked')
-        #for cust in self.passenger_list:
-            #if cust.ending_floor == self.current_floor:
-                #self.passenger_list.remove(cust)
-                #print('Customer {}'.format(cust))
-        
-    #def doors_open_embarking(self):
-        #for customer in self.customers_for_boarding_list:
-            #if self.current_floor == customer.starting_floor:
-                #self.embarking_customer(customer)
-                #self.customers_for_boarding_list.remove(customer)
-                #print('Customer Embarked')
     
 class Customer(object):
+    '''Initialiser for the Customer Class.  Contains Starting floor for Custoemr and ending floor for the Customer, and an ID.
+    '''  
     def __init__(self, ID, starting_floor, ending_floor):
         self.ID = ID
         self.starting_floor = starting_floor
@@ -126,7 +114,6 @@ def main():
 
     boarding_list = []
 
-    #building = Building(num_floors, boarding_list)
     cust_id = 0
     for customer in range(0, num_customers):
         customer = Customer(starting_floor=randint(1, floor_amount), ending_floor=randint(1, floor_amount), ID = cust_id)
