@@ -36,7 +36,7 @@ class Elevator(object):
         self.disembarked_customer = 0
         self.direction = 'up'
 
-#customer moves from customers_for_boarding_list and embarks onto (Elevator)passenger_list
+    #customer moves from customers_for_boarding_list and embarks onto (Elevator)passenger_list
     def embarking_customer(self):
         for customer in self.customers_for_boarding_list:
             if customer.starting_floor == self.current_floor:
@@ -49,7 +49,7 @@ class Elevator(object):
                 print('... Customer embarked ...')
                 print('... Doors Close ...')
 
-#customer exits lift and is removed from (Elevator)passenger_list
+    #customer exits lift and is removed from (Elevator)passenger_list
     def disembarking_customer(self):
         for customer in self.passenger_list:
             if customer.ending_floor == self.current_floor:
@@ -60,24 +60,24 @@ class Elevator(object):
                 print('... Customer disembarked ...')
                 print('... Doors Close ...')
 
-#elevator moves one floor at a time
+    #elevator moves one floor at a time, 
     def move(self):
         print('Elevator is on floor {}'.format(self.current_floor))
         '''Move Elevator one floor at a time'''
-        if self.direction == 'up' and self.current_floor == self.floors:
-                self.direction = 'down'
-        else:
-            self.direction = 'up'
-
-        if self.current_floor != self.floors:
+        #if self.direction == 'up' and self.current_floor != self.floors:
+                #self.current_floor += 1
+        
+        if self.current_floor != self.floors and self.direction == 'up':
             self.current_floor += 1
             print('Elevator moving up one floor')
             print('\nCurrent floor {}'.format(self.current_floor))
-        elif self.direction == 'down':
+        if self.current_floor != 1 and self.direction == 'down':
             self.current_floor-=1
             print('Elevator moving down one floor')
             print('\nCurrent floor {}'.format(self.current_floor))
-        if self.current_floor == 0:
+        if self.current_floor == self.floors:
+            self.direction = 'down'
+        if self.current_floor == 1:
             self.direction = 'up'
 
     
@@ -100,7 +100,8 @@ class Customer(object):
         return    
     
 def main():
-
+    # Prompts user for number of floors for the Building and a number or prospective customers for the Elevator.
+    # Also catches user input for 0 floors (Hotel cannot have zero floors)
     while True:
         try:
             floor_amount = int(input("Please enter the number of floors in the Building: "))
@@ -108,7 +109,7 @@ def main():
             if floor_amount == int(0):
                 raise ValueError
         except:
-            print("Please enter an integer greater than zero")              # Catches user input for 0 floors
+            print("Please enter an integer greater than zero")
         else:
             break
 
