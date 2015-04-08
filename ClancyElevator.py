@@ -1,3 +1,5 @@
+"""Elevator simulation"""
+
 from random import randint
 
 class Building(object):
@@ -24,10 +26,12 @@ class Building(object):
             #customer.output()
 
 class Elevator(object):
-    '''Initialiser for the Elevator Class.  Contains number of floors the Elevator has to travel and  
-    a list for number of customers about to Board the Elevator and a list for Passengers in the Elevator.
-    '''    
+    
     def __init__(self, num_floors, customers_for_boarding_list):
+        '''
+        Initialiser for the Elevator Class.  Contains number of floors the Elevator has to travel and  
+        a list for number of customers about to Board the Elevator and a list for Passengers in the Elevator.
+        '''        
         self.floors = num_floors
         self.passenger_list = []
         self.customers_for_boarding_list = customers_for_boarding_list
@@ -60,8 +64,10 @@ class Elevator(object):
                 print('... Customer disembarked ...')
                 print('... Doors Close ...')
 
+
     #elevator moves one floor at a time, 
     def move(self):
+    
         print('Elevator is on floor {}'.format(self.current_floor))
         '''Move Elevator one floor at a time'''
         #if self.direction == 'up' and self.current_floor != self.floors:
@@ -130,3 +136,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+    import doctest
+    doctest.testmod(extraglobs={'e': Elevator(3, 3)})
